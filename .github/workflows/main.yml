@@ -62,6 +62,7 @@ jobs:
           Rscript -e 'library("SYNCSA"); library("vegan")'
       - name: Test output
         run: |
+          Rscript -e 'library("deepSNV")'
           cat test1.txt test2.txt > test_output.txt
           diff test_output.txt test3.txt || exit 1
           

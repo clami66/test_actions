@@ -39,6 +39,10 @@ jobs:
           environment-file: environment.yaml
           auto-activate-base: false
           use-only-tar-bz2: true
+      - name: Set R cache folder
+        run: |
+          mkdir ~/r_pkgs_dir
+          export R_LIBS_USER="~/r_pkgs_dir"
       - name: Cache R
         uses: actions/cache@v2
         env:

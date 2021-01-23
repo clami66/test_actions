@@ -48,7 +48,7 @@ jobs:
         uses: actions/cache@v2
         env:
           # Change this value to reset cache if installing new R packages
-          CACHE_NUMBER: kewq8cxme9ofruducmrdkkii3
+          CACHE_NUMBER: t7yuffg687sdqayjnh656dg
           R_LIBS_USER: ~/r_pkgs_dir
         with:
           path: ${{ env.R_LIBS_USER }} 

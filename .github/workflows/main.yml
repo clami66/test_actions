@@ -58,7 +58,7 @@ jobs:
         run: | #conda activate env_seqitope
           export R_LIBS_USER="~/r_pkgs_dir"
           which Rscript
-          Rscript -e 'if (!require("SYNCSA")) install.packages("SYNCSA", lib=Sys.getenv("R_LIBS_USER"))'
+          Rscript -e 'if (!require("SYNCSA")) install.packages("SYNCSA", lib=Sys.getenv("R_LIBS_USER"), repos = "http://cran.us.r-project.org")'
       - name: Test R installation
         run: | #export R_LIBS_USER="~/r_pkgs_dir"
           Rscript -e 'library("deepSNV")'

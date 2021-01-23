@@ -56,7 +56,6 @@ jobs:
         run: |
           export R_LIBS_USER="~/r_pkgs_dir"
           Rscript -e 'if (!require("SYNCSA")) install.packages("SYNCSA", lib=Sys.getenv("R_LIBS_USER"))'
-          Rscript -e 'if (!require("VariantAnnotation")) install.packages("VariantAnnotation", lib=Sys.getenv("R_LIBS_USER")); library("VariantAnnotation")'
       - name: Test R installation
         run: |
           export R_LIBS_USER="~/r_pkgs_dir"

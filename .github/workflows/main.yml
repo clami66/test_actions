@@ -45,6 +45,7 @@ jobs:
         env:
           R_LIBS_USER: ~/r_pkgs_dir
         run: | #conda activate env_seqitope
+          echo $R_LIBS_USER
           which Rscript
           Rscript -e 'if (!require("SYNCSA")) install.packages("SYNCSA", lib=Sys.getenv("R_LIBS_USER"), repos = "http://cran.us.r-project.org")'
       - name: Test R installation

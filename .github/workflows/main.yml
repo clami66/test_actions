@@ -50,7 +50,7 @@ jobs:
           key: ${{ runner.os }}-r-${{ env.CACHE_NUMBER }}
       # SYNCSA not included in conda yet, remove when we fix this
       - name: Install R dependencies
-        run: Rscript -e 'install.packages("SYNCSA", lib=".")'
+        run: Rscript -e 'if (!require("SYNCSA")) install.packages("SYNCSA", lib=".")'
       - name: Test R installation
         run: |
           export R_LIBS_USER="."

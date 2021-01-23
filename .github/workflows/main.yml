@@ -1,0 +1,50 @@
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  # This workflow contains a single job called "build"
+  environment:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      # Install conda (with cache), set up the environment
+      - name: Cache conda
+        uses: actions/cache@v1
+        env:
+          # Increase this value to reset cache if etc/example-environment.yml has not changed
+          CACHE_NUMBER: 0
+        with:
+          path: ~/conda_pkgs_dir
+          key:
+            ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{
+            hashFiles('environment.yaml') }}
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          channel-priority: strict  
+          activate-environment: env_seqitope
+          environment-file: environment.yaml
+          auto-activate-base: false
+          use-only-tar-bz2: true
+      # SYNCSA not included in conda yet
+      - name: Install R package SYNCSA
+        run: Rscript -e 'install.packages("SYNCSA", lib=".")'
+      - name: Test R installation
+        run: |
+          export R_LIBS_USER="."
+          Rscript -e 'library("SYNCSA"); library("vegan")'
+          
+

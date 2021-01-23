@@ -1,0 +1,9 @@
+name: env_seqitope
+
+channels:
+  - conda-forge
+  - bioconda
+  - r
+
+dependencies:
+  - r=3.6.0

@@ -55,6 +55,7 @@ jobs:
       - name: Install R dependencies
         run: |
           export R_LIBS_USER="~/r_pkgs_dir"
+          which Rscript
           Rscript -e 'if (!require("SYNCSA")) install.packages("SYNCSA", lib=Sys.getenv("R_LIBS_USER"))'
       - name: Test R installation
         run: | #export R_LIBS_USER="~/r_pkgs_dir"

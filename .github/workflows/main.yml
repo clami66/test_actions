@@ -27,18 +27,17 @@ jobs:
       - name: Cache conda
         uses: actions/cache@v1
         env:
-          # Increase this value to reset cache if etc/example-environment.yml has not changed
+          # Increase this value to reset cache if environment file has not changed
           CACHE_NUMBER: 0
         with:
           path: ~/conda_pkgs_dir
           key:
-            ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{
-            hashFiles('environment.yaml') }}
+            ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('environment_explicit.yaml') }}
       - uses: conda-incubator/setup-miniconda@v2
         with:
           channel-priority: strict  
           activate-environment: env_seqitope
-          environment-file: environment.yaml
+          environment-file: environment_explicit.yaml
           auto-activate-base: false
           use-only-tar-bz2: true
       - name: Set R cache folder
@@ -47,12 +46,10 @@ jobs:
       - name: Cache R
         uses: actions/cache@v2
         env:
-          # Change this value to reset cache if installing new R packages
-          CACHE_NUMBER: t7yuffg687sdqayjnh656dg
           R_LIBS_USER: ~/r_pkgs_dir
         with:
           path: ${{ env.R_LIBS_USER }} 
-          key: ${{ runner.os }}-r-${{ env.CACHE_NUMBER }}           
+          key: ${{ runner.os }}-r-${{ hashFiles('environment_explicit.yaml') }}           
       # SYNCSA not included in conda yet, remove when we fix this
       - name: Install R dependencies
         run: | #conda activate env_seqitope

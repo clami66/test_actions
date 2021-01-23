@@ -57,9 +57,8 @@ jobs:
           export R_LIBS_USER="~/r_pkgs_dir"
           Rscript -e 'if (!require("SYNCSA")) install.packages("SYNCSA", lib=Sys.getenv("R_LIBS_USER"))'
       - name: Test R installation
-        run: |
-          export R_LIBS_USER="~/r_pkgs_dir"
-          Rscript -e 'library("SYNCSA"); library("deepSNV")'
+        run: | #export R_LIBS_USER="~/r_pkgs_dir"
+          Rscript -e 'library("deepSNV")'
       - name: Test output
         run: |
           cat test1.txt test2.txt > test_output.txt

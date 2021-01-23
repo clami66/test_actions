@@ -50,7 +50,7 @@ jobs:
           R_LIBS_USER: ~/r_pkgs_dir
         with:
           path: ${{ env.R_LIBS_USER }} 
-          key: ${{ runner.os }}-r-${{ CACHE_NUMBER }}           
+          key: ${{ runner.os }}-r-${{ env.CACHE_NUMBER }}           
       # SYNCSA not included in conda yet, remove when we fix this
       - name: Install R dependencies
         run: |

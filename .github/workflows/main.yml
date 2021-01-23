@@ -39,12 +39,18 @@ jobs:
           environment-file: environment.yaml
           auto-activate-base: false
           use-only-tar-bz2: true
-      # SYNCSA not included in conda yet
-      - name: Install R package SYNCSA
-        run: Rscript -e 'install.packages("SYNCSA", lib=".")'
+      - name: Cache R
+        uses: actions/cache@v2
+        with:
+          path: ~/r_pkgs_dir
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: ${{ runner.os }}-r-${{ env.CACHE_NUMBER }}
+      # SYNCSA not included in conda yet, remove when we fix this
+      - name: Install R dependencies
+        run: Rscript -e 'install.packages("SYNCSA", lib="~/r_pkgs_dir")'
       - name: Test R installation
         run: |
-          export R_LIBS_USER="."
+          export R_LIBS_USER="~/r_pkgs_dir"
           Rscript -e 'library("SYNCSA"); library("vegan")'
           
 

@@ -6,5 +6,20 @@ channels:
   - r
 
 dependencies:
+  - python=3.7.3
+  - snakemake=5.3.0
+  - fastqc=0.11.8
+  - bowtie2=2.3.4.3
+  - samtools=1.11
+  - cutadapt=2.4
   - r=3.6.0
+  - r-argparser=0.4
+  - r-hmisc=4.2_0
+  - r-biocmanager=1.30.9
   - r-vegan=2.5_6
+  - r-blob=1.2.0
+  - bioconductor-deepsnv=1.32.0
+  - bioconductor-biostrings=2.54.0
+  - bioconductor-variantannotation=1.32.0
+  - r-factoextra=1.0.5
+  - r-stringi=1.4.3

@@ -51,7 +51,7 @@ jobs:
         env:
           R_LIBS_USER: ~/r_pkgs_dir
         run: | #export R_LIBS_USER="~/r_pkgs_dir"
-          Rscript -e 'library("deepSNV")'
+          Rscript -e 'library("deepSNV"); library("SYNCSA")'
       - name: Test output
         run: |
           cat test1.txt test2.txt > test_output.txt

@@ -59,10 +59,9 @@ jobs:
       - name: Test R installation
         run: |
           export R_LIBS_USER="~/r_pkgs_dir"
-          Rscript -e 'library("SYNCSA"); library("vegan")'
+          Rscript -e 'library("SYNCSA"); library("deepSNV")'
       - name: Test output
         run: |
-          Rscript -e 'library("deepSNV")'
           cat test1.txt test2.txt > test_output.txt
           diff test_output.txt test3.txt || exit 1
           

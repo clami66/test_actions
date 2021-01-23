@@ -23,16 +23,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      # Install conda (with cache), set up the environment
-#      - name: Cache conda
-#        uses: actions/cache@v1
-#        env:
-          # Increase this value to reset cache if environment file has not changed
-#          CACHE_NUMBER: 0
-#        with:
-#          path: ~/conda_pkgs_dir
-#          key:
-#            ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('environment_explicit.yaml') }}
       - uses: conda-incubator/setup-miniconda@v2
         with:
           channel-priority: strict  
@@ -52,11 +42,14 @@ jobs:
           key: ${{ runner.os }}-r-${{ hashFiles('environment_explicit.yaml') }}           
       # SYNCSA not included in conda yet, remove when we fix this
       - name: Install R dependencies
+        env:
+          R_LIBS_USER: ~/r_pkgs_dir
         run: | #conda activate env_seqitope
-          export R_LIBS_USER="~/r_pkgs_dir"
           which Rscript
           Rscript -e 'if (!require("SYNCSA")) install.packages("SYNCSA", lib=Sys.getenv("R_LIBS_USER"), repos = "http://cran.us.r-project.org")'
       - name: Test R installation
+        env:
+          R_LIBS_USER: ~/r_pkgs_dir
         run: | #export R_LIBS_USER="~/r_pkgs_dir"
           Rscript -e 'library("deepSNV")'
       - name: Test output

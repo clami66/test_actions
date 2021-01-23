@@ -64,6 +64,7 @@ jobs:
         run: |
           cat test1.txt test2.txt > test_output.txt
           diff test_output.txt test3.txt || return 1
+          diff test_output.txt test2.txt || return 1
           
         
           

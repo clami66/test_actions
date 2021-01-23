@@ -45,12 +45,11 @@ jobs:
           # Increase this value to reset cache if etc/example-environment.yml has not changed
           CACHE_NUMBER: 0
         with:
-          path: .
-          # Look to see if there is a cache hit for the corresponding requirements file
-          key: ${{ runner.os }}-r-${{ env.CACHE_NUMBER }}
+          path: ${{ env.R_LIBS_USER }} 
+          key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{ hashFiles('DESCRIPTION') }}           
       # SYNCSA not included in conda yet, remove when we fix this
       - name: Install R dependencies
-        run: Rscript -e 'if (!require("SYNCSA")) install.packages("SYNCSA", lib=".")'
+        run: Rscript -e 'if (!require("SYNCSA")) install.packages("SYNCSA", lib=Sys.getenv("R_LIBS_USER"))'
       - name: Test R installation
         run: |
           export R_LIBS_USER="."
